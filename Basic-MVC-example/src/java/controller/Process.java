@@ -6,11 +6,11 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Person;
 
 /**
  *
@@ -29,7 +29,22 @@ public class Process extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        String nombre = request.getParameter("txtNombre");
+        String edad   = request.getParameter("txtEdad");
         
+        if (nombre.equals("") || edad.equals("")) {
+            request.getRequestDispatcher("error_empty.jsp").forward(request, response);
+        } else {
+            int intEdad = 0;
+            try {
+                intEdad = Integer.parseInt(edad);
+            } catch (NumberFormatException ex) {
+                request.getRequestDispatcher("error_number").forward(request, response);
+            }
+            Person p = new Person(nombre, intEdad);
+            request.getSession().setAttribute("Person1", p);
+            request.getRequestDispatcher("success.jsp").forward(request, response);
+        }
         
     }
 

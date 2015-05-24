@@ -6,7 +6,7 @@
     <title>JSP Page</title>
 </head>
 <body>
-    <form>
+    <form action="process" method="POST">
         <label>Nombre:</label>
         <input type="text" name="txtNombre"><br>
         <label>Edad:</label>
